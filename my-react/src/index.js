@@ -43,18 +43,14 @@ import {Provider} from 'react-redux'
 import { BrowserRouter,Route,Link,Redirect,Switch} from 'react-router-dom'
 import App from './App'
 import { counter} from './index.redux'
-
+import Auth from './Auth.js'
+import Dashboard from './Dashboard'
 const store = createStore(counter,compose(
 		applyMiddleware(thunk),
 		window.devToolsExtension?window.devToolsExtension():()=>{}
 	)
 )
-function Second(){
-	return <h2>2222222</h2>
-}
-function Third(){
-	return <h2>3333333</h2>
-}
+
 class Test extends React.Component{
 	constructor(props){
 		super(props)
@@ -67,27 +63,12 @@ class Test extends React.Component{
 ReactDom.render(
 	(<Provider store={store}>
 		<BrowserRouter>
-			<div>
-				<ul>
-					<li>
-						<Link to="/">11</Link>
-					</li>
-					<li>
-						<Link to="/Second">22</Link>
-					</li>
-					<li>
-						<Link to="/Third">33</Link>
-					</li>
-				</ul>
 				<Switch>
-					<Route path="/" exact component={App}></Route>
-					<Route path="/Second" component={Second}></Route>
-					<Route path="/Third" component={Third}></Route>
-					<Route path="/:location" component={Test}></Route>
+					<Route path="/login" component={Auth}></Route>
+					<Route path="/dashboard" component={Dashboard}></Route>
+					<Redirect to='/dashboard'></Redirect>
 				</Switch>
-				
-				
-			</div>
+			
 		</BrowserRouter>
 	</Provider>
 	),
