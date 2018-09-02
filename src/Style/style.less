@@ -25,7 +25,7 @@ img {
 */
 
 .app-header {
-    height: 50px;
+    height: 1rem;
     z-index: 999;
     position: fixed;
     top:0;
@@ -35,26 +35,42 @@ img {
     animation: move-down 0.3s ease-out;
     display: flex;
     .icon {
-        width: 50px;
-        height: 50px;
+        width: 1rem;
+        height: 1rem;
         a {
             display: block;
             color: #fff;
         }
     }
     .iconfont {
-        font-size: 24px;
+        font-size: 0.24rem;
         color: #fff;
     }
     .title {
-        line-height: 50px;
+        line-height: 1rem;
         text-align: center;
         color: #fff;
-        font-size: 16px;
+        font-size: 0.24rem;
         margin: 0;
         white-space: nowrap;
         text-overflow: ellipsis;
         flex:auto;
+    }
+}
+
+.app-footer{
+    width:100%;
+    height: 1rem;
+    line-height:1rem;
+    position:fixed;
+    left:0;
+    bottom:0;
+    right:0;
+    display:flex;
+    li{
+        flex:1;
+        font-size: 0.24rem;
+        text-align:center;
     }
 }
 

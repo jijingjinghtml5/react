@@ -5,6 +5,10 @@ import {NavLink as Link } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory'
 const history = createBrowserHistory();
 
+
+
+
+
 // 如果使用createBrowserHistory
 export class Header extends Component{
 	constructor(props) {

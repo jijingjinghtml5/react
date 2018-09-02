@@ -1,16 +1,9 @@
 import { createStore } from 'redux';//, combineReducers, applyMiddleware
+import visibleDATA from '../pages/index/reducer'
+console.log(visibleDATA);
 
-const defaultState = 0;
-const reducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case 'ADD':
-      return state + action.payload;
-    default: 
-      return state;
-  }
-};
 var store = createStore(
-    reducer
+    visibleDATA
 );
 
 export default store;

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {Router,Route,IndexRoute,hashHistory} from 'react-router';
 import route from './Config/Route'; //路由配置
-import './Iconfont/iconfont.css'; //字体图标
-
 import '../node_modules/bee-mobile/dist/bee-mobile.min.css'
 import './Style/style.less'; //加载公共样式
-import './App.css'; //公共图标
+// import './App.css'; //公共图标
 class App extends Component {
   render() {
     return (
