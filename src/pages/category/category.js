@@ -3,6 +3,7 @@ import { Button,Toast } from 'bee-mobile';
 import {NavLink as Link } from 'react-router-dom';
 import { Header,Footer } from '../../component/common';
 import { Tool } from '../../util';
+import { connect } from 'react-redux';
 import './category.less';
 
 
@@ -52,6 +53,7 @@ class Category extends Component{
 	}
 	componentDidMount(){
 		this.getCate();
+		console.log(this.props.visibleDATA);
 	}
 	change(index){
 		this.setState({
@@ -84,5 +86,6 @@ class Category extends Component{
 		)
 	}
 }
+export default connect((state) => { return { visibleDATA: state.visibleDATA }; })(Category); //连接redux
 
-export default Category
+//export default Category
