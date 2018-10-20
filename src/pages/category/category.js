@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import { Button,Toast } from 'bee-mobile';
 import {NavLink as Link } from 'react-router-dom';
 import { Header,Footer } from '../../component/common';
-import { Tool } from '../../util';
+import { Tool,Util } from '../../util';
 import { connect } from 'react-redux';
 import './category.less';
 
@@ -11,7 +11,13 @@ class CateContent extends Component{
 	constructor(props){
 		super(props);
 	}
+    loadImage(image_id){
+	    console.log('image_id'+image_id);
+        Util.loadImage(this,image_id, 'm');
+    }
 	render(){
+	    console.log(this.props);
+	    let _this = this;
 		return (
 			<div className="CateContent">
 	        	<ul className="CateLeft">
@@ -23,15 +29,15 @@ class CateContent extends Component{
 				        })
 				    }
 		      	</ul>
-	        	<ul className="CateRight">
+				<ul className="CateRight">
 		        	{
 				        this.props.second_cat.map(function (item) {
 				            return (
 				                <li key={item.cat_id}>
 					                <Link to={`/pages/gallery/gallery?cat_id=${item.cat_id}`}>
-										<img src="item.image_id"/>
+										<img src="{images[item.addon.icon]?images[item.addon.icon]:''}" onLoad={_this.loadImage.bind(_this,item.addon.icon)}/>
 					                	<label>{item.cat_name}</label>
-					                </Link>	
+					                </Link>
 				                </li>
 				            )
 				        })
@@ -56,6 +62,10 @@ class Category extends Component{
 		console.log(this.props.visibleDATA);
 	}
 	change(index){
+	    if(index == 'm'){
+	        console.log(1111111);
+	        return;
+        }
 		this.setState({
 			second_cat:this.state.first_cat[index].children?this.state.first_cat[index].children:[],
 			current_index:index
@@ -86,6 +96,4 @@ class Category extends Component{
 		)
 	}
 }
-export default connect((state) => { return { visibleDATA: state.visibleDATA }; })(Category); //连接redux
-
-//export default Category
+export default connect((state) => { return { visibleDATA: state.visibleDATA }; })(Category); 

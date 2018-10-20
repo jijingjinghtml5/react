@@ -34,6 +34,43 @@ Util.removeLocalItem = function (key) {
     return localStorage.removeItem();
 }
 
+Util.loadImage = function (page_ins, ident, size) {
+    size || (size = 'o');
+    if (['o', 'xs', 's', 'm', 'l'].indexOf(size) < 0) {
+        size = 'o';
+    }
+    if (!page_ins || !ident) {
+        return;
+    }
+    if (page_ins.state.images && page_ins.state.images[ident]) {
+        return;
+    }
+    if (!page_ins.image_ids) {
+        page_ins.image_ids = {};
+    }
+    if (!page_ins.image_ids[size]) {
+        page_ins.image_ids[size] = []
+    }
+    if (!page_ins.load_image_timer) {
+        page_ins.load_image_timer = {};
+    }
+    if (page_ins.load_image_timer[size] == 'undefined') {
+        page_ins.load_image_timer[size] = 0;
+    }
+    page_ins.image_ids[size].push(ident);
+    clearTimeout(page_ins.load_image_timer[size]);
+    page_ins.load_image_timer[size] = setTimeout(function() {
+        let res = Tool.post('/openapi/storager/' + size,{
+            'images': page_ins.image_ids[size]
+        })
+        let image_src_data = res.data.data;
+        let _set = {};
+        for (let i = 0; i < image_src_data.length; i++) {
+            _set['images.' + page_ins.image_ids[size][i]] = image_src_data[i];
+        }
+        page_ins.setState(_set);
+    }, 200);
+}
 /**
  * 真正的请求
  * @param url 请求地址
