@@ -10,14 +10,16 @@ import './category.less';
 class CateContent extends Component{
 	constructor(props){
 		super(props);
+
 	}
-    loadImage(image_id){
-	    console.log('image_id'+image_id);
-        Util.loadImage(this,image_id, 'm');
-    }
+
 	render(){
 	    console.log(this.props);
 	    let _this = this;
+	    let images = _this.props.images;
+	    if(!images){
+	    	images = {};
+		}
 		return (
 			<div className="CateContent">
 	        	<ul className="CateLeft">
@@ -35,7 +37,7 @@ class CateContent extends Component{
 				            return (
 				                <li key={item.cat_id}>
 					                <Link to={`/pages/gallery/gallery?cat_id=${item.cat_id}`}>
-										<img src="{images[item.addon.icon]?images[item.addon.icon]:''}" onLoad={_this.loadImage.bind(_this,item.addon.icon)}/>
+										<img src={images[item.addon.icon]?images[item.addon.icon]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='} onLoad={_this.props.loadImage.bind(_this,item.addon.icon)}/>
 					                	<label>{item.cat_name}</label>
 					                </Link>
 				                </li>
@@ -62,15 +64,16 @@ class Category extends Component{
 		console.log(this.props.visibleDATA);
 	}
 	change(index){
-	    if(index == 'm'){
-	        console.log(1111111);
-	        return;
-        }
 		this.setState({
 			second_cat:this.state.first_cat[index].children?this.state.first_cat[index].children:[],
 			current_index:index
 		})
 	}
+    loadImage(image_id){
+        console.log('image_id'+image_id);
+        Util.loadImage(this,image_id, 'm');
+        console.log(this.state);
+    }
 	async getCate(){
 	    let res = await Tool.post('/m/category.html',{});
 	    console.log(res);
@@ -90,7 +93,7 @@ class Category extends Component{
 		return (
 			<div className="Category">
 	        	<Header title="分类"/>
-	        	<CateContent first_cat={this.state.first_cat} current_index={this.state.current_index} change={this.change.bind(this)} second_cat={this.state.second_cat}/>
+	        	<CateContent first_cat={this.state.first_cat} current_index={this.state.current_index} change={this.change.bind(this)} second_cat={this.state.second_cat} images={this.state.images} loadImage={this.loadImage.bind(this)}/>
 	        	<Footer/>
 	      	</div>
 		)

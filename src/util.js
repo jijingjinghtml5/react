@@ -1,5 +1,6 @@
 // import merged from 'obj-merged';
 import * as config from './Config/Config';
+import Toast from "bee-mobile/lib/Toast/Toast";
 
 const {target} = config;
 const Util = {};
@@ -33,6 +34,41 @@ Util.removeLocalItem = function (key) {
     }
     return localStorage.removeItem();
 }
+//滚动条在Y轴上的滚动距离
+Util.getScrollTop = function(){
+    var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+    if(document.body){
+        bodyScrollTop = document.body.scrollTop;
+    }
+    if(document.documentElement){
+        documentScrollTop = document.documentElement.scrollTop;
+    }
+    scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+    return scrollTop;
+}
+//文档的总高度
+Util.getScrollHeight = function(){
+    var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+    if(document.body){
+        bodyScrollHeight = document.body.scrollHeight;
+    }
+    if(document.documentElement){
+        documentScrollHeight = document.documentElement.scrollHeight;
+    }
+    scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+    return scrollHeight;
+}
+//浏览器视口的高度
+Util.getWindowHeight = function(){
+    var windowHeight = 0;
+    if(document.compatMode == "CSS1Compat"){
+        windowHeight = document.documentElement.clientHeight;
+    }else{
+        windowHeight = document.body.clientHeight;
+    }
+    return windowHeight;
+}
+
 
 Util.loadImage = function (page_ins, ident, size) {
     size || (size = 'o');
@@ -59,16 +95,20 @@ Util.loadImage = function (page_ins, ident, size) {
     }
     page_ins.image_ids[size].push(ident);
     clearTimeout(page_ins.load_image_timer[size]);
-    page_ins.load_image_timer[size] = setTimeout(function() {
-        let res = Tool.post('/openapi/storager/' + size,{
+    page_ins.load_image_timer[size] = setTimeout(async function() {
+        let res = await Tool.post('/openapi/storager/' + size,{
             'images': page_ins.image_ids[size]
         })
-        let image_src_data = res.data.data;
-        let _set = {};
+        let image_src_data = res.data;
+        console.log(image_src_data);
+        let images = {};
         for (let i = 0; i < image_src_data.length; i++) {
-            _set['images.' + page_ins.image_ids[size][i]] = image_src_data[i];
+            images[page_ins.image_ids[size][i]] = image_src_data[i];
         }
-        page_ins.setState(_set);
+        console.log(page_ins);
+        page_ins.setState({
+            images:images
+        });
     }, 200);
 }
 /**
@@ -106,16 +146,17 @@ async function commonFetcdh(url, options, method = 'GET') {
   }
 
   return new Promise((resolve, reject) => {
-    fetch(url, initObj).then((res) => {
-      if(res.headers.get('x-wxappstorage')){
-        Util.localItem('_SID',res.headers.get('x-wxappstorage').split('=')[1])
-      }
-      return  res.json()
-    }).then((res) => {
-      resolve(res)  
-    }).catch(function(err){
-      reject(err)
-    })
+
+      fetch(url, initObj).then((res) => {
+          if(res.headers.get('x-wxappstorage')){
+            Util.localItem('_SID',res.headers.get('x-wxappstorage').split('=')[1])
+          }
+          return  res.json()
+      }).then((res) => {
+          resolve(res)
+      }).catch(function(err){
+          reject(err)
+      })
   });
 }
 class Http {
