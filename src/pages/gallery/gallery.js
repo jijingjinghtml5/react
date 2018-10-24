@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { Toast,SearchBar } from 'bee-mobile';
+import { Toast } from 'antd-mobile';
 import {NavLink as Link } from 'react-router-dom';
 import { Header,Footer } from '../../component/common';
 import { Tool,Util } from '../../util';
@@ -19,11 +19,8 @@ export default class Gallery extends Component{
         let _this = this;
         _this.getGallery();
         window.onscroll = function(){
-            console.log(Util.getScrollTop());
-            console.log(Util.getWindowHeight());
-            console.log(Util.getScrollHeight());
             if(totalPage == 0 || current_page < _this.state.pager.total){
-                if(Util.getScrollTop() + Util.getWindowHeight() >= Util.getScrollHeight()){
+                if(Util.getScrollTop() + Util.getWindowHeight()+1 >= Util.getScrollHeight()){
                     _this.getGallery();
                 }
             }else{
@@ -34,6 +31,7 @@ export default class Gallery extends Component{
         };
     }
     async getGallery(){
+
         let res = await Tool.post('/m/list.html?page='+current_page,{});
         if (res.data_list) {
             this.setState({
@@ -43,9 +41,7 @@ export default class Gallery extends Component{
             totalPage = res.pager.total;
             current_page++;
         } else if(current_page==1){
-            Toast.show({
-                message: '暂无数据'
-            });
+            Toast.info( '暂无数据');
         }
     }
     render(){

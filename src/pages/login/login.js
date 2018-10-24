@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button,Toast } from 'bee-mobile';
+import { Button,Toast } from 'antd-mobile';
 import { Header,Footer } from '../../component/common';
 import { Tool } from '../../util';
 import PropTypes from 'prop-types';
@@ -34,14 +34,10 @@ export default class Login extends Component{
     let { username,password } = this.state;
     let res = await Tool.post('/m/passport-post_login.html',{uname:username,password:password});
     if (res.success) {
-        Toast.show({
-            message: '登陆成功'
-        });
+        Toast.info('登陆成功');
         this.context.router.history.push('/pages/member/index')
     } else {
-        Toast.show({
-            message: '登陆失败'
-        });
+        Toast.info('登陆失败');
     }
   }
 	render() {

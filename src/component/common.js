@@ -16,6 +16,7 @@ export class Header extends Component{
 	    this.state = {date: new Date()};
 	}
 	goback(){
+
       	// 使用方式
 		history.goBack();
   	}
@@ -34,7 +35,7 @@ export class Header extends Component{
 				// 	<i className={'iconfont icon-'+leftIcon}></i>
 				// </a>
 				<a onClick={()=>this.goback()}>
-					<i className={'iconfont icon-'+leftIcon}></i>
+					<i className={'iconfont icon-'+leftIcon}>back</i>
 				</a>
 			);
 		}

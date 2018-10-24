@@ -1,7 +1,6 @@
 // import merged from 'obj-merged';
 import * as config from './Config/Config';
-import Toast from "bee-mobile/lib/Toast/Toast";
-
+import { Toast } from 'antd-mobile';
 const {target} = config;
 const Util = {};
 /**
@@ -98,7 +97,7 @@ Util.loadImage = function (page_ins, ident, size) {
     page_ins.load_image_timer[size] = setTimeout(async function() {
         let res = await Tool.post('/openapi/storager/' + size,{
             'images': page_ins.image_ids[size]
-        })
+        },'hidden')
         let image_src_data = res.data;
         console.log(image_src_data);
         let images = {};
@@ -117,7 +116,7 @@ Util.loadImage = function (page_ins, ident, size) {
  * @param options 请求参数
  * @param method 请求方式
  */
-async function commonFetcdh(url, options, method = 'GET') {
+async function commonFetcdh(url, options, method = 'GET',toast) {
   const searchStr = obj2String(options)
   let initObj = {};
   var session_id = Util.localItem('_SID'),
@@ -144,30 +143,33 @@ async function commonFetcdh(url, options, method = 'GET') {
       body: searchStr
     }
   }
-
+  if(toast!='hidden'){
+      Toast.info('加载中',0,function(){},true);
+  }
   return new Promise((resolve, reject) => {
-
       fetch(url, initObj).then((res) => {
           if(res.headers.get('x-wxappstorage')){
             Util.localItem('_SID',res.headers.get('x-wxappstorage').split('=')[1])
           }
           return  res.json()
       }).then((res) => {
+          Toast.hide();
           resolve(res)
       }).catch(function(err){
+          Toast.hide();
           reject(err)
       })
   });
 }
 class Http {
     //get
-    async get(url, options) {
-      return await commonFetcdh(url, options, 'GET')
+    async get(url, options ,toast) {
+      return await commonFetcdh(url, options, 'GET',toast)
     }
 
     //post
-    async post(url, options) {
-      return await commonFetcdh(url, options, 'POST')
+    async post(url, options ,toast) {
+      return await commonFetcdh(url, options, 'POST',toast)
     }
 }
 
