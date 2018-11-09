@@ -57,9 +57,11 @@ export default class Gallery extends Component{
                         this.state.data_list.map(function (item) {
                             return (
                                 <li key={item.product.product_id}>
-                                    <img src={item.image} />
-                                    <span className="goods-name">{item.product.name}</span>
-                                    <span className="goods-price">￥{item.product.price}</span>
+                                    <Link to={`/pages/product/product?product_id=${item.product.product_id}`}>
+                                        <img src={item.image} />
+                                        <span className="goods-name">{item.product.name}</span>
+                                        <span className="goods-price">￥{item.product.price}</span>
+                                    </Link>
                                 </li>
                             )
                         })

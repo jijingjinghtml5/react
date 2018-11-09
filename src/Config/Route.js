@@ -44,7 +44,12 @@ const routes = [
 		exact: false,
 		//component: MemberSignout
 		component: (props) => getComponent(props, () => import('../pages/member/signout/index'))
-	}
+	},
+    { path: '/pages/product/product',
+        exact: false,
+        //component: MemberSignout
+        component: (props) => getComponent(props, () => import('../pages/product/product'))
+    }
 ];
 /**
  * (路由根目录组件，显示当前符合条件的组件)

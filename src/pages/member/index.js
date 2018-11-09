@@ -46,19 +46,23 @@ export default class MemberIndex extends Component{
 		if(this.state.images){
             images = this.state.images;
 		}
-		if(!this.state.member) return null;
+
 	    return (
 			<div className="MemberIndex">
 	      		<Header title="个人中心"/>
-				<div className="memberTop">
-                    <div className="topDetail">
-                        <img src={images[this.state.member.avatar]?images[this.state.member.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='} onLoad={this.loadImage.bind(this,this.state.member.avatar)}/>
-                        <label>{this.state.member.name}</label>
-                        <label>{this.state.member.uname}</label>
-                    </div>
+				{
+                    this.state.member?(
+                        <div className="memberTop">
+                            <div className="topDetail">
+                                <img src={images[this.state.member.avatar]?images[this.state.member.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='} onLoad={this.loadImage.bind(this,this.state.member.avatar)}/>
+                                <label>{this.state.member.name}</label>
+                                <label>{this.state.member.uname}</label>
+                            </div>
+                            <Link className="setting" to="/pages/member/signout/index">设置</Link>
+                        </div>
+					):''
+				}
 
-                    <Link className="setting" to="/pages/member/signout/index">设置</Link>
-				</div>
                 <Footer/>
 	        </div>
 	    );

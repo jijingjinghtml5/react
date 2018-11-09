@@ -21,7 +21,6 @@ class PageDesign extends Component{
 						}
 						
 					})
-		    		
 		    	}
 	      	</ul>
       	)
