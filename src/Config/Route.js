@@ -47,8 +47,13 @@ const routes = [
 	},
     { path: '/pages/product/product',
         exact: false,
-        //component: MemberSignout
+        //component: Product
         component: (props) => getComponent(props, () => import('../pages/product/product'))
+    },
+    { path: '/pages/cart/cart',
+        exact: false,
+        //component: Cart
+        component: (props) => getComponent(props, () => import('../pages/cart/cart'))
     }
 ];
 /**

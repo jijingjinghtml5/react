@@ -1,0 +1,73 @@
+@style-main : #FC4773;
+body{
+    padding-bottom:2rem;
+}
+.merchant-item{
+    background:#fff;
+    margin-bottom:0.2rem;
+    h5{
+        color:#333;
+        font-size:0.32rem;
+        line-height:1rem;
+        padding:0 0.3rem;
+        margin:0;
+    }
+    .goods-item{
+        display:flex;
+        padding:0.3rem;
+        font-size:0.26rem;
+        color:#333;
+        border-bottom:1px solid #efefef;
+        .image-block{
+            width:1.8rem;
+            height:1.8rem;
+            line-height:1.8rem;
+            text-align:center;
+            margin-right:0.3rem;
+            img{
+                max-width:100%;
+                max-height:100%;
+                vertical-align: middle;
+            }
+        }
+        .goods-detail{
+            width:4.12rem;
+            flex:auto;
+            .goods-name{
+                color:#333;
+                font-size:0.26rem;
+                line-height:0.34rem;
+                height:0.68rem;
+                text-overflow:ellipsis;
+                overflow:hidden;
+            }
+            .goods-spec{
+                color:#999;
+                font-size:0.24rem;
+                margin-top:0.13rem;
+            }
+            .goods-price{
+                color:@style-main;
+                margin-top:0.34rem;
+                font-size:0.34rem;
+                line-height:0.48rem;
+            }
+        }
+  }
+}
+.cart-footer{
+    line-height:1rem;
+    background:#fff;
+    position:fixed;
+    bottom:1rem;
+    left:0;
+    right:0;
+    button{
+        float:right;
+        background: @style-main;
+        color:#fff;
+        line-height:1rem;
+        width:2rem;
+        text-align:center;
+    }
+}

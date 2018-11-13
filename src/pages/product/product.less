@@ -1,0 +1,45 @@
+.Product{
+    background:#efefef;
+    padding-bottom:1rem;
+    position:relative;
+    .product-detail{
+        padding:0 0.3rem;
+        line-height:0.5rem;
+        background:#fff;
+    }
+    .product-desc{
+        background:#fff;
+        padding:0 0.3rem;
+        margin-top:0.2rem;
+        .product-title{
+            line-height:0.8rem;
+            font-size:0.32rem;
+        }
+        img{
+            display:block;
+        }
+    }
+    .product-footer{
+        display:flex;
+        line-height:1rem;
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        background:#efefef;
+        label{
+            display:inline-block;
+            width:1rem;
+        }
+        button{
+            flex:auto;
+            color:#fff;
+            &.addCart{
+              background:#FC4773;
+            }
+            &.buyNow{
+              background:#6699FF;
+            }
+        }
+    }
+}
