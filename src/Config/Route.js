@@ -30,10 +30,10 @@ const routes = [
 		//component: Login
 		component: (props) => getComponent(props, () => import('../pages/login/login'))
 	},
-	{ path: '/pages/category/category',
+	{ path: '/pages/brand/brand',
 		exact: false,
-		//component: Category
-		component: (props) => getComponent(props, () => import('../pages/category/category'))
+		//component: brand
+		component: (props) => getComponent(props, () => import('../pages/brand/brand'))
 	},
 	{ path: '/pages/gallery/gallery',
 		exact: false,
@@ -54,6 +54,11 @@ const routes = [
         exact: false,
         //component: Cart
         component: (props) => getComponent(props, () => import('../pages/cart/cart'))
+    },
+    { path: '/pages/event/event',
+        exact: false,
+        //component: Cart
+        component: (props) => getComponent(props, () => import('../pages/event/event'))
     }
 ];
 /**

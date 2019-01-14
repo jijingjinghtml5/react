@@ -1,8 +1,11 @@
 // import merged from 'obj-merged';
 import * as config from './Config/Config';
 import { Toast } from 'antd-mobile';
+import createBrowserHistory from 'history/createBrowserHistory'
+const history = createBrowserHistory();
 const {target} = config;
 const Util = {};
+
 /**
  * 将对象转成 a=1&b=2的形式
  * @param obj 对象
@@ -12,6 +15,25 @@ function obj2String(obj, arr = [], idx = 0) {
     arr[idx++] = [item, obj[item]]
   }
   return new URLSearchParams(arr).toString()
+}
+Util.dateFormat = function(fmt,date) { //author: meizz
+    date = parseInt(date);
+    date = new Date(date*1000);
+    var o = {
+        "M+" : date.getMonth()+1,                 //月份
+        "d+" : date.getDate(),                    //日
+        "h+" : date.getHours(),                   //小时
+        "m+" : date.getMinutes(),                 //分
+        "s+" : date.getSeconds(),                 //秒
+        "q+" : Math.floor((date.getMonth()+3)/3), //季度
+        "S"  : date.getMilliseconds()             //毫秒
+    };
+    if(/(y+)/.test(fmt))
+        fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    return fmt;
 }
 Util.localItem = function (key, value) {
     if (arguments.length == 1) {
@@ -68,6 +90,29 @@ Util.getWindowHeight = function(){
     return windowHeight;
 }
 
+//倒计时
+Util.count = function(time,current_time) {
+    var day = 0,hour = 0,minute = 0,second = 0; //时间默认值
+
+    var timestamp = current_time / 1000;
+    var intDiff = time - timestamp;
+    if (intDiff > 0) {
+        day = Math.floor(intDiff / (60 * 60 * 24)).toString();
+        hour = (Math.floor(intDiff / (60 * 60)) - (day * 24)).toString();
+        minute = (Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60)).toString();
+        second = (Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60)).toString();
+    }
+    if (day <= 9)
+        day = '0' + day;
+    if (hour <= 9)
+        hour = '0' + hour;
+    if (minute <= 9)
+        minute = '0' + minute;
+    if (second <= 9)
+        second = '0' + second;
+    var rare_time = (day > 0 ? (day + '天') :'') +(hour > 0 ? hour + '小时':'') +(minute > 0 ? minute + '分':'');
+    return rare_time
+}
 
 Util.loadImage = function (page_ins, ident, size) {
     size || (size = 'o');
@@ -99,12 +144,12 @@ Util.loadImage = function (page_ins, ident, size) {
             'images': page_ins.image_ids[size]
         },'hidden')
         let image_src_data = res.data;
-        console.log(image_src_data);
+        // console.log(image_src_data);
         let images = {};
         for (let i = 0; i < image_src_data.length; i++) {
             images[page_ins.image_ids[size][i]] = image_src_data[i];
         }
-        console.log(page_ins);
+        // console.log(page_ins);
         page_ins.setState({
             images:images
         });
@@ -154,6 +199,12 @@ async function commonFetcdh(url, options, method = 'GET',toast) {
           return  res.json()
       }).then((res) => {
           Toast.hide();
+          if(res.error&&res.redirect.match('/m/passport-login.html')){
+              console.log('请求错误');
+              console.log(res);
+              history.push('/pages/login/login');
+              return;
+          }
           resolve(res)
       }).catch(function(err){
           Toast.hide();

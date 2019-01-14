@@ -19,7 +19,7 @@ export default class Gallery extends Component{
         let _this = this;
         _this.getGallery();
         window.onscroll = function(){
-            if(totalPage == 0 || current_page < _this.state.pager.total){
+            if(totalPage == 0 || current_page <= _this.state.pager.total){
                 if(Util.getScrollTop() + Util.getWindowHeight()+1 >= Util.getScrollHeight()){
                     _this.getGallery();
                 }

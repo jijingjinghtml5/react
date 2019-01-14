@@ -38,6 +38,7 @@
     "react": "^16.4.1",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.4.1",
+    "react-infinite-scroller": "^1.2.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -63,7 +64,7 @@
     "redux-devtools": "^3.4.1",
     "sass-loader": "^7.1.0"
   },
-  "proxy": "https://demo.vmcshop.com",
+  "proxy": "https://jxk.linlangec.com",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
