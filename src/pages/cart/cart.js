@@ -107,7 +107,11 @@ class Cart extends Component{
                         <div>~购物车为空，去逛逛吧~</div>
                     )
                 }
+<<<<<<< HEAD
                 <Footer/>
+=======
+                <Footer type={"cart"}/>
+>>>>>>> 3c98a4d8b909ab8fd3ab2fde7fe8ffbbf41e2137
             </div>
         )
     }

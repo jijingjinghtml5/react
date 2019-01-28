@@ -63,7 +63,7 @@ export default class MemberIndex extends Component{
 					):''
 				}
 
-                <Footer/>
+                <Footer type={"member"}/>
 	        </div>
 	    );
 	}
