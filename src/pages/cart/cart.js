@@ -29,7 +29,8 @@ class Cart extends Component{
                 cartdata:res.data
             })
         }else{
-            if(res.error.includes("/m/cart-blank.html")){
+            console.log(res);
+            if(res.redirect.includes("/m/cart-blank.html")){
                 this.setState({
                     cart_empty:'YES'
                 })
@@ -62,48 +63,50 @@ class Cart extends Component{
                 <Header title={"购物车"}></Header>
                 {
                     cart_empty=='NO'?(
-                        <ul className="cart-object">
-                            {
-                                cartdata.objects.map((item,idx)=>{
-                                    console.log(item);
-                                    return (
-                                        <li className={"merchant-item"} key={item.merchant.merchant_id}>
-                                            <h5>{item.merchant.show_name}</h5>
-                                            {
-                                                item.objects.goods.map(goods=>{
-                                                    return (
-                                                        <div className={"goods-item"} key={goods.obj_ident}>
-                                                            {/*{goods.item.product.product_id}*/}
-                                                            <div className={"image-block"}>
-                                                                <img onLoad={this.loadImage.bind(this,goods.item.product.image_id)} src={images[goods.item.product.image_id]?images[goods.item.product.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}/>
+                        <div>
+                            <ul className="cart-object">
+                                {
+                                    cartdata.objects.map((item,idx)=>{
+                                        console.log(item);
+                                        return (
+                                            <li className={"merchant-item"} key={item.merchant.merchant_id}>
+                                                <h5>{item.merchant.show_name}</h5>
+                                                {
+                                                    item.objects.goods.map(goods=>{
+                                                        return (
+                                                            <div className={"goods-item"} key={goods.obj_ident}>
+                                                                {/*{goods.item.product.product_id}*/}
+                                                                <div className={"image-block"}>
+                                                                    <img onLoad={this.loadImage.bind(this,goods.item.product.image_id)} src={images[goods.item.product.image_id]?images[goods.item.product.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}/>
+                                                                </div>
+                                                                <div className={"goods-detail"}>
+                                                                    <div className={"goods-name"}>
+                                                                        {goods.item.product.name}
+                                                                    </div>
+                                                                    <div className={"goods-spec"}>
+                                                                        {goods.item.product.spec_info}
+                                                                    </div>
+                                                                    <div className={"goods-price"}>
+                                                                        ￥{goods.item.product.buy_price}
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div className={"goods-detail"}>
-                                                                <div className={"goods-name"}>
-                                                                    {goods.item.product.name}
-                                                                </div>
-                                                                <div className={"goods-spec"}>
-                                                                    {goods.item.product.spec_info}
-                                                                </div>
-                                                                <div className={"goods-price"}>
-                                                                    ￥{goods.item.product.buy_price}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
+                                                        )
+                                                    })
+                                                }
+                                            </li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                            <div className={"cart-footer"}>
+                                <button>立即结算</button>
+                            </div>
+                        </div>
                     ):(
                         <div>~购物车为空，去逛逛吧~</div>
                     )
                 }
-                <div className={"cart-footer"}>
-                    <button>立即结算</button>
-                </div>
                 <Footer/>
             </div>
         )
