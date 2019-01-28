@@ -108,6 +108,95 @@ img {
         transform: translate(0, 0);
     }
 }
+.active-item{
+    display:flex;
+    padding:0.3rem 0.3rem;
+    background:#fff;
+    border-bottom:0.01rem solid #ebebeb;
+    label{
+        width:0.9rem;
+        height:0.9rem;
+        border:0.01rem solid #ebebeb;
+        display:block;
+        img{
+            max-width:0.9rem;
+            max-height:0.9rem;
+        }
+    }
+    .active-detail{
+        margin-left:0.18rem;
+        flex:auto;
+        .active-title {
+            color:#000;
+            font-size:0.32rem;
+            line-height:0.4rem;
+            font-weight:600;
+        }
+        .active-time{
+            color:#FC4773;
+            font-size:0.24rem;
+            line-height:0.32rem;
+            margin:0.18rem 0;
+            span{
+                display:inline-block;
+                padding:0.02rem 0.05rem;
+                background:#FC4773;
+                color:#fff;
+                border-radius:0.04rem;
+                font-size:0.2rem;
+                margin-right:0.14rem;
+            }
+            &.advance{
+                color:#F5A623;
+                span{
+                    background:#F5A623;
+                }
+            }
+        }
+        .active-desc{
+            line-height:0.4rem;
+        }
+        .active-img{
+            width:5.20rem;
+            padding:0 0.30rem;
+            display:flex;
+            flex-wrap:wrap;
+            margin:0 auto;
+            img{
+                width:1.50rem;
+                height:1.50rem;
+                margin-right:0.2rem;
+                margin-top:0.2rem;
+            }
+        }
+        .end-time{
+            font-size:0.26rem;
+            color:#333;
+            line-height:0.6rem;
+            margin-top:0.18rem;
+            font-weight:600;
+            span{
+                display:inline-block;
+                width:1.9rem;
+                height:0.6rem;
+                float:right;
+                color:#fff;
+                text-align:center;
+                background:#FC4773;
+                border-radius:0.04rem;
+                margin:0;
+                padding:0;
+                font-size:0.28rem;
+                font-weight:400;
 
+            }
+            &.advance{
+                span{
+                    background:#F5A623;
+                }
+            }
+        }
+    }
+}
 
 
